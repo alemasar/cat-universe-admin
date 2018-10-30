@@ -1,0 +1,8 @@
+{
+  "add-galaxy":[
+    {
+      "name":"name",
+      "type":"text"
+    }
+  ]
+}
