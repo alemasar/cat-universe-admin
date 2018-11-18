@@ -12,7 +12,6 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "typeRoots": [
-      "node_modules/@types"
     ],
     "lib": [
       "esnext",

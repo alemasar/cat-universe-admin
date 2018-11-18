@@ -1,0 +1,14 @@
+{
+    "add-world": [
+        {
+            "name": "name",
+			"container": "name-container",
+			"wrapper": "form-wrapper"
+        },
+		{
+			"name": "form-wrapper",
+			"domClass": "form-wrapper",
+            "wrapper": "root"
+		}
+    ]
+}

@@ -3,10 +3,11 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { CatFormModule } from './app/cat-form/cat-form.module';
 import { environment } from './environments/environment';
+import 'hammerjs';
 
 if (environment.production) {
-  enableProdMode();
+	enableProdMode();
 }
 
 platformBrowserDynamic().bootstrapModule(CatFormModule)
-  .catch(err => console.error(err));
+	.catch(err => console.error(err));

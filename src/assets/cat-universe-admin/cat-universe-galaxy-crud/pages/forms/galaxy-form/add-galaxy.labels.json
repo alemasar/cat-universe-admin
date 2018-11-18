@@ -1,0 +1,12 @@
+{
+    "add-galaxy": [
+        {
+            "name": "name",
+            "label": "Name"
+        },
+		{
+            "name": "poblation",
+            "label": "Poblation"
+        }
+    ]
+}

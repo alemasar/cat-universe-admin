@@ -1,0 +1,20 @@
+
+<ng-template [ngIf]="elements && elements[0][1] && elements[0][1].wrapper==='root'" [ngIfElse]="componentsType">
+	{{elements[0][1]['name']}}
+	<p>
+		cat-form-molecule root works!
+	</p>
+	<div class="{{elements[0][1]['domClass']}}">
+		<cat-universe-form-molecule *ngIf="elements[0][1] && elements[0][1]['type']!=='field'" [molecule]="elements[0][1]['atoms']" [formName]="formName"></cat-universe-form-molecule>
+	</div>
+</ng-template>
+
+<ng-template #componentsType>
+	<ng-container *ngIf="elements">
+		<ng-container *ngFor="let element of elements">
+			{{element[1]['name']}}
+			<cat-universe-form-molecule *ngIf="element[1] && element[1].type!=='field'" [molecule]="element[1].atoms" [formName]="formName"></cat-universe-form-molecule>
+			<cat-universe-form-atom *ngIf="element[1] && element[1].type==='field'" [atom]="element[1]" [formName]="formName"></cat-universe-form-atom>
+		</ng-container>
+	</ng-container>
+</ng-template>

@@ -1,0 +1,9 @@
+{
+    "add-world": [
+        {
+			"name": "name",
+			"src": "input-text",
+			"component": "CatFormMatInputTextComponent"
+        }
+    ]
+}

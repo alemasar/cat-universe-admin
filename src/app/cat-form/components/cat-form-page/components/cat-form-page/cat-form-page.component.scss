@@ -1,0 +1,20 @@
+.mat-toolbar{
+	position: relative;
+    z-index: 100;
+}
+.mat-drawer-container{
+	height: 100%;
+    padding-top: 64px;
+    margin-top: -64px;
+	.mat-drawer {
+		top: 64px;
+		.sidenav-content-contianer{
+			padding:16px;
+		}
+	}
+	.mat-drawer-content{
+		.cat-universe-form-container{
+			padding:16px;
+		}
+	}
+}

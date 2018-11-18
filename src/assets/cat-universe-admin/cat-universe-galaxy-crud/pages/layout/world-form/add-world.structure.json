@@ -1,0 +1,12 @@
+{
+    "add-world": [
+        {
+            "name": "name",
+            "type": "field"
+        },
+		{
+			"name": "form-wrapper",
+            "type": "wrapper"
+		}
+    ]
+}

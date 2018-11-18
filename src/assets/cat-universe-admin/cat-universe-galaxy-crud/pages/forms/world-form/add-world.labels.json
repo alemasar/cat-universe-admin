@@ -1,0 +1,8 @@
+{
+    "add-world": [
+        {
+            "name": "name",
+            "label": "Name"
+        }
+    ]
+}

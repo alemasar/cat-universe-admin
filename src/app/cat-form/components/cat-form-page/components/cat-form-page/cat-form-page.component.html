@@ -1,0 +1,26 @@
+<mat-toolbar>My App</mat-toolbar>
+
+<!--<mat-sidenav-container class="example-container">
+	<mat-sidenav mode="side" opened #sidenav>Sidenav content</mat-sidenav>
+	<mat-sidenav-content>
+		<ng-container *ngFor="let form of forms">
+			<cat-universe-form-molecule [form]="form" [formConfig]="formConfig"></cat-universe-form-molecule>
+		</ng-container>
+	</mat-sidenav-content>
+  </mat-sidenav-container>-->
+
+<mat-drawer-container class="example-container">
+	<mat-drawer mode="side" opened #drawer>
+			<div class="sidenav-content-contianer">
+				Sidenav content
+			</div>
+		</mat-drawer>
+	<mat-drawer-content>
+		<div class="cat-universe-form-container">
+			<ng-container *ngFor="let form of forms">
+				{{form | json}}
+				<!--cat-universe-form-page-molecule [form]="form" [formConfig]="formConfig" [formName]="formConfig.action + '-' + form[0][0]"></cat-universe-form-page-molecule>-->
+			</ng-container>
+		</div>
+	</mat-drawer-content>
+</mat-drawer-container>

@@ -1,18 +1,24 @@
 {
-  "cat-galaxy-page":{
-    "forms":[
-      {
-        "add-galaxy":[
-          "fields", "data"
-        ]
-      }
-    ],
-    "layout":[
-      {
-        "add-galaxy":[
-          "structure", "data"
-        ]
-      }
+    "cat-universe-galaxy": [
+        {
+            "galaxy": [
+                {
+                    "forms": ["fields", "labels"]
+                },
+                {
+                    "layout": ["structure", "layout"]
+                }
+            ]
+		},
+        {
+            "world": [
+                {
+                    "forms": ["fields", "labels"]
+                },
+                {
+                    "layout": ["structure", "layout"]
+                }
+            ]
+        }
     ]
-  }
 }

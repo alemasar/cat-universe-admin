@@ -1,0 +1,32 @@
+{
+    "add-galaxy": [
+        {
+            "name": "name",
+            "type": "field"
+        },
+		{
+            "name": "poblation",
+            "type": "field"
+		},
+        {
+            "name": "name-group",
+            "type": "group"
+        },
+		{
+            "name": "poblation-array",
+            "type": "array"
+		},
+		{
+			"name": "poblation-container",
+            "type": "container"
+		},
+		{
+			"name": "name-container",
+            "type": "container"
+		},
+		{
+			"name": "form-wrapper",
+            "type": "wrapper"
+		}
+    ]
+}

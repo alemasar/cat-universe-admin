@@ -1,0 +1,29 @@
+{
+    "add-galaxy": [
+        {
+            "name": "name",
+			"container": "name-container",
+			"wrapper": "name-group-container"
+        },
+		{
+            "name": "poblation",
+			"container": "poblation-container",
+			"wrapper": "poblation-array-container"
+		},
+		{
+			"name": "name-group-container",
+			"container": "name-group-container",
+            "wrapper": "form-wrapper"
+		},
+		{
+			"name": "poblation-array-container",
+			"container": "poblation-array-container",
+            "wrapper": "form-wrapper"
+		},
+		{
+			"name": "form-wrapper",
+			"domClass": "form-wrapper",
+            "wrapper": "root"
+		}
+    ]
+}
