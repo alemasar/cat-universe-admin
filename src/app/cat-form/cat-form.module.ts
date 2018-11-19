@@ -5,7 +5,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CatFormPageComponent } from './components/cat-form-page/components/cat-form-page/cat-form-page.component';
-
 import { CatFormInjectModuleService } from './components/services/cat-form-inject-module.service';
 import { CatFormGetPropertiesService } from './components/services/cat-form-get-properties.service';
 import { CatFormGroupByPropertiesService } from './components/services/cat-form-group-by-properties.service';

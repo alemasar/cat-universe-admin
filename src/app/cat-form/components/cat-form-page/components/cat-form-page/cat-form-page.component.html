@@ -16,11 +16,11 @@
 			</div>
 		</mat-drawer>
 	<mat-drawer-content>
-		<div class="cat-universe-form-container">
-			<ng-container *ngFor="let form of forms">
+		<div class="cat-universe-form-container" #vc>
+			<!--<ng-container *ngFor="let form of forms">
 				{{form | json}}
-				<!--cat-universe-form-page-molecule [form]="form" [formConfig]="formConfig" [formName]="formConfig.action + '-' + form[0][0]"></cat-universe-form-page-molecule>-->
-			</ng-container>
+				<cat-universe-form-page-molecule [form]="form" [formConfig]="formConfig" [formName]="formConfig.action + '-' + form[0][0]"></cat-universe-form-page-molecule>
+			</ng-container>-->
 		</div>
 	</mat-drawer-content>
 </mat-drawer-container>
