@@ -1,0 +1,10 @@
+{
+    "add-world": [
+        {
+			"name": "name",
+			"src": "cat-form-mat-input-text",
+			"content": "cat-form-mat-input-text",
+			"component": "CatFormMatInputTextModule"
+        }
+    ]
+}

@@ -16,8 +16,9 @@ export class CatFormMoleculeComponent implements OnInit {
 
 	ngOnInit() {
 		this.elements = [];
-		this.molecule.forEach((element) => {
+		/*this.molecule.forEach((element) => {
 			this.elements.push(element);
-		});
+		});*/
+		console.log("Este componente")
 	}
 }

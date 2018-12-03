@@ -1,0 +1,16 @@
+{
+    "add-galaxy": [
+        {
+			"name": "name",
+			"src": "cat-form-mat-input-text",
+			"content": "cat-form-mat-input-text",
+			"component": "CatFormMatInputTextModule"
+		},
+		{
+			"name": "poblation",
+			"src": "cat-form-mat-input-text",
+			"content": "cat-form-mat-input-text",
+			"component": "CatFormMatInputTextModule"
+        }
+    ]
+}

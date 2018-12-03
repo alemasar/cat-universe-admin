@@ -1,16 +1,6 @@
 import {
 	Component,
 	OnInit,
-	Input,
-	Compiler,
-	NgModule,
-	AfterViewInit,
-	ViewContainerRef,
-	NgModuleRef,
-	ViewChild,
-	Injector,
-	Optional,
-	SkipSelf
 } from '@angular/core';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatInputModule } from '@angular/material';

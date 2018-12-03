@@ -1,5 +1,5 @@
 
-<ng-template [ngIf]="elements && elements[0][1] && elements[0][1].wrapper==='root'" [ngIfElse]="componentsType">
+<!--<ng-template [ngIf]="elements && elements[0][1] && elements[0][1].wrapper==='root'" [ngIfElse]="componentsType">
 	{{elements[0][1]['name']}}
 	<p>
 		cat-form-molecule root works!
@@ -17,4 +17,7 @@
 			<cat-universe-form-atom *ngIf="element[1] && element[1].type==='field'" [atom]="element[1]" [formName]="formName"></cat-universe-form-atom>
 		</ng-container>
 	</ng-container>
-</ng-template>
+</ng-template>-->
+<mat-form-field class="example-full-width">
+	<input matInput placeholder="Favorite food" value="Sushi">
+  </mat-form-field>

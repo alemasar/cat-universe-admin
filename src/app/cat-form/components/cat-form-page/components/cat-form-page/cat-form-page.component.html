@@ -17,6 +17,8 @@
 		</mat-drawer>
 	<mat-drawer-content>
 		<div class="cat-universe-form-container" #vc>
+			{{context | json}}
+			<ng-container *appDynamicComponent="template; context: this;" ></ng-container>
 			<!--<ng-container *ngFor="let form of forms">
 				{{form | json}}
 				<cat-universe-form-page-molecule [form]="form" [formConfig]="formConfig" [formName]="formConfig.action + '-' + form[0][0]"></cat-universe-form-page-molecule>

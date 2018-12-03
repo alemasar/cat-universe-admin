@@ -24,7 +24,8 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+			  "src/assets",
+			  "src/app/cat-universe-admin-pages/cat-universe-galaxy-crud/pages"
             ],
             "styles": [
               "src/styles.scss"
@@ -87,8 +88,8 @@
             ],
             "scripts": [],
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+				{ "glob": "**/*", "input": "src/assets/", "output": "/assets/" },
+				{ "glob": "favicon.ico", "input": "src/", "output": "/" }
             ]
           }
         },

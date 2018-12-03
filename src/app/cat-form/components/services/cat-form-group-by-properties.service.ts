@@ -6,95 +6,69 @@ import { CatFormMolecule } from '../models/cat-form-molecule.form';
 export class CatFormGroupByPropertiesService {
 	countAtoms;
 	groupByForm(json) {
-		let concatJSON = [];
-		let formName = '';
-		const mergedJSON = {};
+		console.log(json)
+		const concatJSON = [];
 		const formJSON = {};
-		json.map(molecule => {
-			formName = Object.keys(molecule)[0];
-			concatJSON = concatJSON.concat(Object.values(molecule)[0]);
+		json.forEach(form => {
+			const formName = Object.keys(form[0])[0];
+			if (!formJSON.hasOwnProperty(formName)) {
+				formJSON[formName] = {};
+			}
+			concatJSON[formName] = concatJSON.concat(...form.map(properties => properties[formName]));
+			this.concatJSON(concatJSON[formName], formJSON[formName]);
+			formJSON[formName] = this.filterJSONbetweenAtomsAndMolecules(formJSON[formName]);
 		});
-		if (!formJSON.hasOwnProperty(formName)) {
-			formJSON[formName] = {};
-			formJSON[formName]['atom'] = {};
-			formJSON[formName]['molecule'] = {};
-		}
-		this.concatAtoms(concatJSON, formName, formJSON);
-		this.concatMolecules(concatJSON, formName, formJSON);
-		this.groupAtomsByWrapper(formName, formJSON);
-		this.groupMoleculesByWrapper(formName, mergedJSON, formJSON);
-		return mergedJSON;
+		console.log(formJSON);
+		return formJSON;
 	}
 
 
-	private concatAtoms(atoms, formName, formJSON) {
-		atoms
-		.filter(field => field.hasOwnProperty('type') && field.type === 'field')
-		.map(field => {
-			const atom: CatFormAtom = new CatFormAtom(field);
-			if (!formJSON[formName]['atom'].hasOwnProperty(field.name)) {
-				formJSON[formName]['atom'][field.name] = {};
-			}
-			formJSON[formName]['atom'][field.name] = atom;
+	private concatJSON(atoms, formJSON) {
+		const atomsValue = Object.values(atoms);
+		atomsValue
+			.forEach(field => {
+				if (!formJSON.hasOwnProperty(field['name'])) {
+					formJSON[field['name']] = {};
+				}
+				Object.assign(formJSON[field['name']], field);
 			});
-		this.countAtoms = atoms.filter(field => field.hasOwnProperty('type') && field.type === 'field').length;
 	}
 
-	private concatMolecules(molecules, formName, formJSON) {
-		molecules
-		.filter(field => !field.hasOwnProperty('type'))
-		.map(field => {
-			let type = '';
-			if (formJSON[formName]['atom'].hasOwnProperty(field.name)) {
-				type = 'atom';
+	private filterJSONbetweenAtomsAndMolecules(formJSON) {
+		const values = Object.values(formJSON);
+		let fieldObj;
+		const fieldToInsert = {};
+
+		values.forEach((value) => {
+			if (value['type'] === 'field') {
+				fieldObj = new CatFormAtom(value);
 			} else {
-				if (!formJSON[formName].hasOwnProperty('molecule')) {
-					formJSON[formName]['molecule'] = {};
-				}
-				type = 'molecule';
+				fieldObj = new CatFormMolecule(value);
 			}
-			let fieldObj = {};
-			let fieldToInsert = {};
-				if (formJSON[formName][type].hasOwnProperty(field.name)) {
-					if (type === 'atom') {
-						fieldObj = new CatFormAtom(formJSON[formName][type][field.name]);
-						fieldToInsert = new CatFormAtom(field);
-						formJSON[formName][type][field.name] = new CatFormAtom(Object.assign(fieldObj, fieldToInsert));
-					} else if (type === 'molecule') {
-						fieldObj = new CatFormMolecule(formJSON[formName][type][field.name]);
-						fieldToInsert = new CatFormMolecule(field);
-						formJSON[formName][type][field.name] = new CatFormMolecule(Object.assign(fieldObj, fieldToInsert));
+
+			fieldToInsert[value['name']] = {};
+			fieldToInsert[value['name']] = fieldObj;
+			if (fieldToInsert.hasOwnProperty(value['wrapper'])) {
+				if (!fieldToInsert[value['wrapper']].hasOwnProperty('components')) {
+					fieldToInsert[value['wrapper']]['components'] = [];
+				}
+				fieldToInsert[value['wrapper']]['components'].push({
+					name: value
+				});
+			} else {
+				if (formJSON.hasOwnProperty(value['wrapper'])) {
+					if (!formJSON[value['wrapper']].hasOwnProperty('components')) {
+						formJSON[value['wrapper']]['components'] = [];
 					}
-				} else {
-					fieldObj = {};
-					fieldToInsert = field;
-					formJSON[formName][type][field.name] = new CatFormMolecule(Object.assign(fieldObj, fieldToInsert));
+					formJSON[value['wrapper']]['components'].push(fieldObj);
 				}
-		});
-	}
-
-	private groupAtomsByWrapper(formName, formJSON) {
-		Object.values(formJSON[formName].atom).forEach((atom: CatFormAtom) => {
-			if (!formJSON[formName].molecule[atom.wrapper]['atoms']) {
-				formJSON[formName].molecule[atom.wrapper]['atoms'] = [];
-			}
-			formJSON[formName].molecule[atom.wrapper].atoms.push([atom.name, atom]);
-		});
-	}
-
-	private groupMoleculesByWrapper(formName, mergedJSON, formJSON) {
-		console.log(formJSON[formName].molecule)
-		mergedJSON[formName] = formJSON[formName].molecule;
-		Object.values(mergedJSON[formName]).forEach((molecule: CatFormMolecule) => {
-			if (mergedJSON[formName][molecule.name].wrapper !== 'root') {
-				if (!mergedJSON[formName][molecule.wrapper].hasOwnProperty('atoms')) {
-					mergedJSON[formName][molecule.wrapper]['atoms'] = [];
-				}
-				mergedJSON[formName][molecule.wrapper].atoms.push([molecule.name, molecule]);
-				delete mergedJSON[formName][molecule.name];
-			} else {
-				mergedJSON[formName][molecule.name]['numberAtoms'] = this.countAtoms;
 			}
 		});
+		Object.values(fieldToInsert)
+			.filter(field => field['wrapper'] !== 'root')
+			.map((field) => {
+				delete fieldToInsert[field['name']];
+			});
+		return fieldToInsert;
 	}
 }
