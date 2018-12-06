@@ -3,20 +3,20 @@
         {
             "name": "name",
 			"container": "name-container",
-			"wrapper": "name-group-container"
+			"wrapper": "name-group"
         },
 		{
             "name": "poblation",
 			"container": "poblation-container",
-			"wrapper": "poblation-array-container"
+			"wrapper": "poblation-array"
 		},
 		{
-			"name": "name-group-container",
+			"name": "name-group",
 			"container": "name-group-container",
             "wrapper": "form-wrapper"
 		},
 		{
-			"name": "poblation-array-container",
+			"name": "poblation-array",
 			"container": "poblation-array-container",
             "wrapper": "form-wrapper"
 		},

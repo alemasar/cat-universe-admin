@@ -4,9 +4,7 @@ import { CatFormMolecule } from '../models/cat-form-molecule.form';
 
 @Injectable()
 export class CatFormGroupByPropertiesService {
-	countAtoms;
 	groupByForm(json) {
-		console.log(json)
 		const concatJSON = [];
 		const formJSON = {};
 		json.forEach(form => {
