@@ -7,9 +7,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CatFormPageComponent } from './components/cat-form-page/components/cat-form-page/cat-form-page.component';
 import { CatFormGroupByPropertiesService } from './components/services/cat-form-group-by-properties.service';
 import { CatFormParseTemplateService } from './components/services/cat-form-parse-template.service';
-import { DynamicComponentModule } from './modules/dynamic-component/form-component-dynamic-component.module';
-import { CatFormMoleculeComponent } from './components/cat-form-page/components/cat-form-molecule/cat-form-molecule.component';
-
+import { CatFormMatInputTextModule } from './modules/material-wrappers/cat-form-mat-input-text/cat-form-mat-input-text.module';
+import { CatFormTemplateComponent } from './components/cat-form-page/components/cat-form-template/cat-form-template.component';
+import { DynamicComponentDirective } from './modules/form-component-dynamic-component/form-component-dynamic-component.directive';
 import { LayoutModule } from '@angular/cdk/layout';
 import {
 	MatToolbarModule,
@@ -20,21 +20,6 @@ import {
 	MatInputModule
 } from '@angular/material';
 
-@NgModule({
-	imports: [
-		CommonModule,
-		MatInputModule
-	],
-	declarations: [
-		CatFormMoleculeComponent
-	],
-	exports: [
-		CatFormMoleculeComponent
-	]
-})
-export class SharedModule { }
-
-
 
 @NgModule({
 	imports: [
@@ -42,25 +27,29 @@ export class SharedModule { }
 		CommonModule,
 		BrowserAnimationsModule,
 		FormsModule,
+		ReactiveFormsModule,
 		HttpClientModule,
 		LayoutModule,
 		MatToolbarModule,
 		MatButtonModule,
 		MatSidenavModule,
 		MatIconModule,
-		ReactiveFormsModule,
-		DynamicComponentModule.forRoot({
-			imports: [SharedModule]
-		})
+		MatInputModule,
+		CatFormMatInputTextModule,
 	],
 	declarations: [
-		CatFormPageComponent
+		CatFormPageComponent,
+		CatFormTemplateComponent,
+		DynamicComponentDirective
 	],
 	providers: [
 		CatFormGroupByPropertiesService,
 		CatFormParseTemplateService,
 	],
-	exports: [CatFormPageComponent],
+	exports: [
+		CatFormPageComponent,
+		CatFormTemplateComponent
+	],
 	bootstrap: [],
 })
 export class CatFormModule {}

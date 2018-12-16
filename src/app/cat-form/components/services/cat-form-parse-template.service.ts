@@ -6,8 +6,8 @@ import { FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 export class CatFormParseTemplateService {
 
 	private parseContent(formElement, template, form) {
-		if (formElement.hasOwnProperty('content')) {
-			template.lines.push('<' + formElement.content + '></' + formElement.content + '>');
+		if (!template.hasOwnProperty('formLayout')) {
+			template.formLayout = [];
 		}
 		if (formElement.hasOwnProperty('component')) {
 			const insertDependency = {
@@ -21,15 +21,55 @@ export class CatFormParseTemplateService {
 			template.dependencies.push(insertDependency);
 		}
 		if (formElement.hasOwnProperty('type')) {
-			if (formElement.type === 'group') {
-				form.addControl(formElement.name, new FormGroup({}));
-			} else if (formElement.type === 'array') {
-				form.addControl(formElement.name, new FormArray([]));
-			} else if (formElement.type === 'field') {
-				if (form instanceof FormArray) {
-					form.push(new FormControl([]));
-				} else if (form instanceof FormGroup) {
-					form.addControl(formElement.name, new FormControl([]));
+			switch (formElement.type) {
+				case 'wrapper': {
+					template.formLayout.push({
+						'type': formElement.type,
+						'tag': 'div class="' + formElement.domClass + '"'
+						// 'control': formElement.name
+					});
+					break;
+				}
+				case 'group': {
+					form.addControl(formElement.name, new FormGroup({}));
+					template.formLayout.push({
+						'type': formElement.type,
+						'tag': 'div class="' + formElement.container + '"  formGroupName="' + formElement.name + '"',
+						'control': formElement.name
+					});
+					break;
+				}
+				case 'array': {
+					form.addControl(formElement.name, new FormArray([]));
+					template.formLayout.push({
+						'type': formElement.type,
+						'tag': 'div class="' + formElement.container + '" formArrayName="' + formElement.name + '"'
+						// 'control': formElement.name
+					});
+					break;
+				}
+				case 'field': {
+					if (form instanceof FormArray) {
+						form.push(new FormControl('hola'));
+						template.formLayout.push({
+							'type': formElement.type,
+							// 'tag': formElement.content + ' formControlName="' + (form.length - 1) + '"',
+							'tag': formElement.content + ' formControlName="' + (form.length - 1) + '"',
+							'close-tag': formElement.content,
+							// 'formControl': form.controls[(form.length - 1)]
+							// 'control': formElement.name
+						});
+					} else if (form instanceof FormGroup) {
+						form.addControl(formElement.name, new FormControl('hola'));
+						template.formLayout.push({
+							'type': formElement.type,
+							'tag': formElement.content + ' formControlName="' + formElement.name + '"',
+							'close-tag': formElement.content,
+							// 'formControl': form.controls[formElement.name]
+							// 'control': formElement.name
+						});
+					}
+					break;
 				}
 			}
 		}
@@ -40,19 +80,10 @@ export class CatFormParseTemplateService {
 		let groupAdded = false;
 		let keyAdded = '';
 
-		if (!template.hasOwnProperty('lines')) {
-			template.lines = [];
-		}
-		template.lines.push(renderElement.openTemplate);
-
-		if (element.type !== 'group' && element.type !== 'array' && element.type !== 'field') {
-			this.parseContent(element, template, form);
-		} else {
-			this.parseContent(element, template, form);
-			if (element.type === 'group' || element.type === 'array') {
-				groupAdded = true;
-				keyAdded = element.name;
-			}
+		this.parseContent(element, template, form);
+		if (element.type === 'group' || element.type === 'array') {
+			groupAdded = true;
+			keyAdded = element.name;
 		}
 
 		if (element.hasOwnProperty('components')) {
@@ -65,19 +96,29 @@ export class CatFormParseTemplateService {
 
 			});
 		}
-		template.lines.push(renderElement.closeTemplate);
+		if (element.type !== 'field') {
+			template.formLayout.push({
+				'type': 'closeTag',
+				'tag': 'div'
+				// 'control': formElement.name
+			});
+		}
+
+		// template.lines.push(renderElement.closeTemplate);
 	}
 	parseFormTemplate(formJSON) {
-		const template = new CatFormModuleTemplate();
+		const template = {};
 		const form = {};
-
+		console.log(formJSON)
 		formJSON
 			.forEach((formComposition) => {
 				const formName = formComposition[0];
 				const values = formComposition[1];
 				form[formName] = new FormGroup({});
-				this.parseElement(Object.values(values)[0], template, form[formName]);
+				template[formName] = new CatFormModuleTemplate();
+				this.parseElement(Object.values(values)[0], template[formName], form[formName]);
 			});
-		return template;
+		console.log(form)
+		return { template, form };
 	}
 }

@@ -1,0 +1,29 @@
+			<!--ng-container *ngIf="form">
+					{{form[formName[0]].controls['name-group']}}
+			<form [formGroup]="form[formName[0]]" (ngSubmit)="submit(form[formName[0]])">
+				<div class ="form-wrapper">
+					<div class ="name-group-container" formGroupName="name-group">
+						<div class ="name-container">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder="Name" formControlName="name">
+							</mat-form-field>
+						</div>
+					</div>
+					<div class ="poblation-array-container" formArrayName="poblation-array">
+						<div class ="poblation-container">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder="Name" formControlName="0">
+							</mat-form-field>
+						</div>
+					</div>
+				</div>
+				<button mat-button>Click me!</button>
+			</form>
+			<form [formGroup]="form[formName[1]]">
+				<div class ="form-wrapper">
+					<div class ="name-container">
+						<cat-form-mat-input-text></cat-form-mat-input-text>
+					</div>
+				</div>
+			</form>
+		</ng-container>-->

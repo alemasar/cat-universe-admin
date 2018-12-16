@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CatFormMoleculeComponent } from './cat-form-molecule.component';
+import { CatFormTemplateComponent } from './cat-form-template.component';
 
-describe('CatFormMoleculeComponent', () => {
-	let component: CatFormMoleculeComponent;
-	let fixture: ComponentFixture<CatFormMoleculeComponent>;
+describe('CatFormTemplateComponent', () => {
+	let component: CatFormTemplateComponent;
+	let fixture: ComponentFixture<CatFormTemplateComponent>;
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
-			declarations: [CatFormMoleculeComponent],
+			declarations: [CatFormTemplateComponent],
 		}).compileComponents();
 	}));
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(CatFormMoleculeComponent);
+		fixture = TestBed.createComponent(CatFormTemplateComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

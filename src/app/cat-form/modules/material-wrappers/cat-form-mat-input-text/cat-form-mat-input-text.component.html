@@ -1,4 +1,3 @@
 <mat-form-field class="example-full-width">
-	<input matInput placeholder="{{placeholder}}" value="Sushi">
+	<input matInput #textInput [value]="defaultValue" [(ngModel)]="inputValue" type="text">
   </mat-form-field>
-  

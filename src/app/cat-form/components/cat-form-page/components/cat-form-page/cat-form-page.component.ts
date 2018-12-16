@@ -32,6 +32,7 @@ export class CatFormPageComponent implements OnInit {
 		@Inject(CatFormGetDataService) private getFormDataService
 	) {
 		this.templateLoaded.subscribe((tpl) => {
+			console.log(tpl)
 			this.getFormDataService.setData(tpl.dependencies);
 			this.template = tpl;
 		});
@@ -42,5 +43,9 @@ export class CatFormPageComponent implements OnInit {
 		const template = this.parseTemplateService.parseFormTemplate(Object.entries(groupedFormJSON));
 		this.context = groupedFormJSON;
 		this.templateLoaded.emit(template);
+	}
+
+	onSubmit() {
+		console.log(this.template['form']['add-galaxy'].value);
 	}
 }

@@ -1,37 +1,85 @@
 import {
 	Component,
 	OnInit,
+	forwardRef,
 	Input,
-	AfterViewInit
+	ViewEncapsulation,
+	OnChanges,
+	AfterViewInit,
+	ViewChild,
+	ElementRef,
+	Renderer,
+	ChangeDetectorRef,
+	ChangeDetectionStrategy
 } from '@angular/core';
-import { CatFormGetDataService } from '../../../components/services/cat-form-input-data.service';
+import { FormControl, FormGroup, ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 @Component({
 	selector: 'cat-form-mat-input-text',
 	templateUrl: './cat-form-mat-input-text.component.html',
 	styleUrls: ['./cat-form-mat-input-text.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [
+		{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => CatFormMatInputTextComponent), multi: true },
+		{ provide: NG_VALIDATORS, useExisting: forwardRef(() => CatFormMatInputTextComponent), multi: true }
+	]
 })
-export class CatFormMatInputTextComponent implements OnInit, AfterViewInit {
-	@Input() element;
-	@Input() index;
-	subscription: Subscription;
-	placeholder: string;
+export class CatFormMatInputTextComponent implements  ControlValueAccessor, OnChanges, OnInit {
+	@Input() form;
+	@Input("inputValue") _inputValue;
+	@ViewChild('textInput') textInput: ElementRef;
+	defaultClass = 'form-control';
+	defaultValue = 'hola';
 
-	constructor (private getDataElementService: CatFormGetDataService) {
-	this.subscription = getDataElementService.dataElement$.subscribe(
-		data => {
-			console.log(data);
-			this.placeholder = data['data']['label'];
-			this.subscription.unsubscribe();
-		});
+	propagateChange: any = () => { };
+	onTouched: any = () => { };
+	validateFn: any = () => { };
+
+	constructor(private renderer: Renderer) {
+
 	}
+
+	//get accessor
+	get inputValue(): any {
+		return this._inputValue;
+	};
+
+	// set accessor including call the onchange callback
+	set inputValue(val: any) {
+		this._inputValue = val;
+		this.propagateChange(val);
+	}
+
+	ngOnChanges(inputs) {
+		this.validateFn = function () {
+			return null;
+		};
+		this.propagateChange(this.inputValue);
+	}
+
+	// From ControlValueAccessor interface
+	writeValue(value) {
+		console.log(value)
+		this.inputValue = this.defaultValue;
+	}
+	// From ControlValueAccessor interface
+	registerOnChange(fn: any) {
+		this.propagateChange = fn;
+	}
+	// From ControlValueAccessor interface
+	registerOnTouched(fn: any) {
+		this.onTouched = fn;
+	}
+
+	validate(c: FormControl) {
+		return this.validateFn(c);
+	}
+
 	ngOnInit() {
-		console.log();
-		const data = this.getDataElementService.getDataElement();
-		this.placeholder = data['data']['label'];
-	}
-
-	ngAfterViewInit() {
+		// this.dornaField.class = this.defaultClass + " " + this.dornaField.class;
+		console.log('hola')
+		
+		// this.propagateChange(this.defaultValue);
 	}
 }

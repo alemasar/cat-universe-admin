@@ -1,5 +1,6 @@
 export class CatFormModuleTemplate {
-	lines: string[];
+	formLayout: [];
+	formControls: {};
 	dependencies: [];
 	data: [];
 	constructor () {}
